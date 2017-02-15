@@ -64,3 +64,7 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.CustomerID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+<p><span>@ViewBag.firstName</span> <span>@ViewBag.LastName</span> will retire in <span>@ViewBag.Retire</span> 
+	years with $<span>@ViewBag.BankCash</span> in the bank, a vacation home in <span>@ViewBag.VacationHome</span> 
+	and a <span>@ViewBag.Vehicle</span>.
+</p>

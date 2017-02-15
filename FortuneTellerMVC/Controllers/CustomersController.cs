@@ -32,7 +32,10 @@ namespace FortuneTellerMVC.Controllers
             {
                 return HttpNotFound();
             }
-			
+
+			ViewBag.FirstName = customer.FirstName;
+			ViewBag.LastName = customer.LastName;
+
 			//retirement logic
 			ViewBag.Retire = 0;
 			
@@ -138,7 +141,7 @@ namespace FortuneTellerMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CustomerID,FirstName,LastName,Age,customer.BirthMonth,FavoriteColor,NumberOfcustomer.NumberOfSiblings")] Customer customer)
+        public ActionResult Create([Bind(Include = "CustomerID,FirstName,LastName,Age,BirthMonth,FavoriteColor,NumberOfSiblings")] Customer customer)
         {
             if (ModelState.IsValid)
             {
@@ -170,7 +173,7 @@ namespace FortuneTellerMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CustomerID,FirstName,LastName,Age,customer.BirthMonth,FavoriteColor,NumberOfcustomer.NumberOfSiblings")] Customer customer)
+        public ActionResult Edit([Bind(Include = "CustomerID,FirstName,LastName,Age,BirthMonth,FavoriteColor,NumberOfSiblings")] Customer customer)
         {
             if (ModelState.IsValid)
             {
