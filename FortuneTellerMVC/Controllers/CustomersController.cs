@@ -32,7 +32,99 @@ namespace FortuneTellerMVC.Controllers
             {
                 return HttpNotFound();
             }
-            return View(customer);
+			
+			//retirement logic
+			ViewBag.Retire = 0;
+			
+			if (customer.Age % 2 == 0)
+			{
+				ViewBag.Retire = 40;
+			}
+			else
+			{
+				ViewBag.Retire = 30;
+			}
+
+			//vacation home logic
+			ViewBag.VacationHome = "";
+
+			if (customer.NumberOfSiblings == 0)
+			{
+				ViewBag.VacationHome = "Las Vegas";
+			}
+			else if (customer.NumberOfSiblings == 1)
+			{
+				ViewBag.VacationHome = "Cancun";
+			}
+			else if (customer.NumberOfSiblings == 2)
+			{
+				ViewBag.VacationHome = "Australia";
+			}
+			else if (customer.NumberOfSiblings == 3)
+			{
+				ViewBag.VacationHome = "France";
+			}
+			else if (customer.NumberOfSiblings > 3)
+			{
+				ViewBag.VacationHome = "Jamaica";
+			}
+			else
+			{
+				ViewBag.VacationHome = "Antarctica";
+			}
+
+			//bank cash logic
+			ViewBag.BankCash = 0;
+			if (customer.BirthMonth > 0 && customer.BirthMonth < 13)
+			{
+				if (customer.BirthMonth > 8)
+				{
+					ViewBag.BankCash = 100000.00;
+				}
+				else if (customer.BirthMonth > 4)
+				{
+					ViewBag.BankCash = 80000.00;
+				}
+				else
+				{
+					ViewBag.BankCash = 60000.00;
+				}
+			}
+			else
+			{
+				ViewBag.BankCash = 0.00;
+			}
+
+			//vehicle logic
+			switch (customer.FavoriteColor.ToLower())
+			{
+				case "red":
+					ViewBag.Vehicle = "WW2 tank with live ammunition";
+					break;
+				case "orange":
+					ViewBag.Vehicle = "steam train retrofitted with car tires";
+					break;
+				case "yellow":
+					ViewBag.Vehicle = "very small and improprietously painted submarine";
+					break;
+				case "green":
+					ViewBag.Vehicle = "blimp emblazoned with logo for the short-lived 1939 comedy troupe \"Axison Allies\"";
+					break;
+				case "blue":
+					ViewBag.Vehicle = "pirate ship loaded with stolen Spanish silver. Avast";
+					break;
+				case "indigo":
+					ViewBag.Vehicle = "featureless chrome orb that hovers ominiously over the road";
+					break;
+				case "violet":
+					ViewBag.Vehicle = "purple Mini Cooper with wood siding";
+					break;
+				default:
+					ViewBag.Vehicle = "squeaky shopping cart";
+					break;
+			}
+
+			return View(customer);
         }
 
         // GET: Customers/Create
@@ -46,7 +138,7 @@ namespace FortuneTellerMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CustomerID,FirstName,LastName,Age,BirthMonth,FavoriteColor,NumberOfSiblings")] Customer customer)
+        public ActionResult Create([Bind(Include = "CustomerID,FirstName,LastName,Age,customer.BirthMonth,FavoriteColor,NumberOfcustomer.NumberOfSiblings")] Customer customer)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +170,7 @@ namespace FortuneTellerMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CustomerID,FirstName,LastName,Age,BirthMonth,FavoriteColor,NumberOfSiblings")] Customer customer)
+        public ActionResult Edit([Bind(Include = "CustomerID,FirstName,LastName,Age,customer.BirthMonth,FavoriteColor,NumberOfcustomer.NumberOfSiblings")] Customer customer)
         {
             if (ModelState.IsValid)
             {
@@ -123,5 +215,7 @@ namespace FortuneTellerMVC.Controllers
             }
             base.Dispose(disposing);
         }
+
+
     }
 }
